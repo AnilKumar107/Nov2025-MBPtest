@@ -1,14 +1,16 @@
 pipeline {
-   agent any
+   agent {label 'java-node' }
+   
    stages {
        stage('Build Code') {
            steps {
-               sh "mvn clean package"
-               echo "Building Artifact for project"
+               sh """
+               echo "Building Artifact for project samplewebapp"
+			   """
                
            }
        }
-       stage('Reading  branch wise')
+       stage('Reading branch wise')
        {
        when
        {
@@ -21,15 +23,15 @@ pipeline {
        }
 
        stage('Deploy Code') {
-	   when
-	   {
-	   branch "master"
-	   	   }
+	   
           steps {
-               sh "mvn tomcat7:deploy"
+               sh """
                echo "Deploying Code"
+			   """
                
           }
       }
       }
-      }
+      
+	  }
+
